@@ -6,8 +6,7 @@ def getBranchName() {
     } else {
         return 'master'
     }
-
-// }
+}
 
 // def getGitUrl() {
 //     if(env.CHANGE_ID != null) {
