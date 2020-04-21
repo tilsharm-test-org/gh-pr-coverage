@@ -39,19 +39,6 @@ timestamps {
                 echo 'XML report were not created'
             }
         }
-        stage('Record Coverage') {
-            // if (env.CHANGE_ID == null) {
-            // currentBuild.result = 'SUCCESS'
-            // step([$class: 'MasterCoverageAction', scmVars: [GIT_URL: 'https://github.com/TilakShrma/gh-pr-test.git']])
-            // } 
-            // else if (env.CHANGE_ID != null) {
-            // currentBuild.result = 'SUCCESS'
-            // step([$class: 'MasterCoverageAction', scmVars: [GIT_URL: 'https://github.com/TilakShrma/gh-pr-test.git']])
-            // step([$class: 'CompareCoverageAction', publishResultAs: 'comment', scmVars: [GIT_URL: 'https://github.com/TilakShrma/gh-pr-test.git']])
-             //}
-            
-        }
-
         stage('Clean Workspace') {
             cleanWs notFailBuild: true
         }
