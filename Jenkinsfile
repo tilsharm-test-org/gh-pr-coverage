@@ -2,7 +2,7 @@
 
 def getBranchName() { 
     if(env.CHANGE_ID != null) {
-        return 'test1'
+        return 'temp'
     } else {
         return 'master'
     }
