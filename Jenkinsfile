@@ -1,11 +1,11 @@
 // def fullBranchUrl(branchName) { return "${scm.getUserRemoteConfigs()[0].getUrl()}/tree/$branchName" }
 
-// def getBranchName() { 
-//     if(env.CHANGE_ID != null) {
-//         return 'test1'
-//     } else {
-//         return 'master'
-//     }
+def getBranchName() { 
+    if(env.CHANGE_ID != null) {
+        return 'test1'
+    } else {
+        return 'master'
+    }
 
 // }
 
@@ -21,7 +21,7 @@ timestamps {
     node(label: 'master') {
         stage('Checkout Git Repo') {
             git credentialsId: 'fe4effdc-f62d-4624-bcc7-d4749675f873',
-            branch: 'master',
+            branch: getBranchName(),
             url: 'https://github.com/tilsharm-test-org/gh-pr-coverage.git'
         }
         stage('Test stage') {
