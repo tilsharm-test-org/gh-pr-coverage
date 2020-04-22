@@ -38,6 +38,16 @@ timestamps {
                 echo 'XML report were not created'
             }
         }
+        stage('Record Coverage') {
+            if (env.CHANGE_ID == null) {
+            currentBuild.result = 'SUCCESS'
+            step([$class: 'MasterCoverageAction', scmVars: [GIT_URL: 'https://github.com/tilsharm-test-org/gh-pr-coverage.git']])
+            } 
+            else if (env.CHANGE_ID != null) {
+            currentBuild.result = 'SUCCESS'
+            step([$class: 'CompareCoverageAction', publishResultAs: 'statusCheck', scmVars: [GIT_URL: 'https://github.com/tilsharm-test-org/gh-pr-coverage.git']])
+            }
+        }
         stage('Clean Workspace') {
             cleanWs notFailBuild: true
         }
