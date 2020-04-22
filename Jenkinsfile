@@ -1,13 +1,12 @@
 // def fullBranchUrl(branchName) { return "${scm.getUserRemoteConfigs()[0].getUrl()}/tree/$branchName" }
 
-// def getBranchName() { 
-//     if(env.CHANGE_ID != null) {
-//         return 'test1'
-//     } else {
-//         return 'master'
-//     }
-
-// }
+def getBranchName() { 
+    if(env.CHANGE_ID != null) {
+        return 'temp'
+    } else {
+        return 'master'
+    }
+}
 
 // def getGitUrl() {
 //     if(env.CHANGE_ID != null) {
@@ -21,7 +20,7 @@ timestamps {
     node(label: 'master') {
         stage('Checkout Git Repo') {
             git credentialsId: 'fe4effdc-f62d-4624-bcc7-d4749675f873',
-            branch: 'master',
+            branch: getBranchName(),
             url: 'https://github.com/tilsharm-test-org/gh-pr-coverage.git'
         }
         stage('Test stage') {
@@ -39,19 +38,6 @@ timestamps {
                 echo 'XML report were not created'
             }
         }
-        stage('Record Coverage') {
-            // if (env.CHANGE_ID == null) {
-            // currentBuild.result = 'SUCCESS'
-            // step([$class: 'MasterCoverageAction', scmVars: [GIT_URL: 'https://github.com/TilakShrma/gh-pr-test.git']])
-            // } 
-            // else if (env.CHANGE_ID != null) {
-            // currentBuild.result = 'SUCCESS'
-            // step([$class: 'MasterCoverageAction', scmVars: [GIT_URL: 'https://github.com/TilakShrma/gh-pr-test.git']])
-            // step([$class: 'CompareCoverageAction', publishResultAs: 'comment', scmVars: [GIT_URL: 'https://github.com/TilakShrma/gh-pr-test.git']])
-             //}
-            
-        }
-
         stage('Clean Workspace') {
             cleanWs notFailBuild: true
         }
